@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.annotations.Authorized;
 import com.revature.models.Post;
+import com.revature.models.User;
 import com.revature.services.PostService;
 
 @RestController
@@ -37,5 +40,23 @@ public class PostController {
     @PutMapping
     public ResponseEntity<Post> upsertPost(@RequestBody Post post) {
     	return ResponseEntity.ok(this.postService.upsert(post));
+    }
+    
+    @Authorized
+    @PostMapping
+    public ResponseEntity<Object> deletePost(/*@RequestBody User user,*/ @RequestBody Post post, HttpSession session) {
+    	
+    	User currentUser = (User) session.getAttribute("user");
+    	
+    	if (
+			currentUser.getId() == post.getAuthor().getId()
+		) {
+    		this.postService.deletePost(post);
+    		return ResponseEntity.ok("Deleted post " + post.getId());
+    	} else {
+    		return null;
+    	}
+    	
+    	
     }
 }
