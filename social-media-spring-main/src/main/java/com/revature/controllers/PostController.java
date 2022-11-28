@@ -2,11 +2,13 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,4 +40,16 @@ public class PostController {
     public ResponseEntity<Post> upsertPost(@RequestBody Post post) {
     	return ResponseEntity.ok(this.postService.upsert(post));
     }
+    
+    @Authorized
+    @PutMapping(
+    		value = "/updatePost", consumes = {MediaType.APPLICATION_JSON_VALUE}
+    		)
+    public ResponseEntity<Post> updatePost(HttpServletRequest request, @RequestBody Post post) {
+    	return ResponseEntity.ok(this.postService.updatePost(post));
+    }
+    
+    
 }
+
+

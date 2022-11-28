@@ -23,4 +23,10 @@ public class PostService {
 	public Post upsert(Post post) {
 		return this.postRepository.save(post);
 	}
+	
+	//Modify/Edit Posts
+	public Post updatePost(Post post) {
+		return this.postRepository.save(post);
+		
+	}
 }
