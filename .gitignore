@@ -10,6 +10,16 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# VSCODE #
+node_modules
+*/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
 # Package Files #
 *.jar
 *.war
@@ -21,3 +31,13 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/.metadata/
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+*/social-media-spring-main/.settings/
+*.sublime-workspace

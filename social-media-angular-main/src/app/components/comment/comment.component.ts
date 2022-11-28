@@ -1,41 +1,58 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import Post from 'src/app/models/Post';
-import { AuthService } from 'src/app/services/auth.service';
-import { PostService } from 'src/app/services/post.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
+import Post from "src/app/models/Post";
+import User from "src/app/models/User";
+import { AuthService } from "src/app/services/auth.service";
+import { PostService } from "src/app/services/post.service";
 
 @Component({
-  selector: 'app-comment',
-  templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.css']
+	selector: "app-comment",
+	templateUrl: "./comment.component.html",
+	styleUrls: ["./comment.component.css"],
 })
 export class CommentComponent implements OnInit {
+	commentForm = new FormGroup({
+		text: new FormControl(""),
+	});
 
-  commentForm = new FormGroup({
-    text: new FormControl(''),
-  })
+	@Input("comment") inputComment: Post;
+	replyToComment: boolean = false;
 
-  @Input('comment') inputComment: Post;
-  replyToComment: boolean = false
+  @Input()
+  currentUser:User;
+  
+	constructor(
+		private postService: PostService,
+		private authService: AuthService
+	) {}
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+	ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
+	toggleReplyToComment = () => {
+		this.replyToComment = !this.replyToComment;
+	};
 
-  toggleReplyToComment = () => {
-    this.replyToComment = !this.replyToComment
-  }
+	submitReply = (e: any) => {
+		e.preventDefault();
+		let newComment = new Post(
+			0,
+			this.commentForm.value.text || "",
+			"",
+			this.authService.currentUser,
+			[]
+		);
+		this.postService
+			.upsertPost({
+				...this.inputComment,
+				comments: [...this.inputComment.comments, newComment],
+			})
+			.subscribe((response) => {
+				this.inputComment = response;
+				this.toggleReplyToComment();
+			});
+	};
 
-  submitReply = (e: any) => {
-    e.preventDefault()
-    let newComment = new Post(0, this.commentForm.value.text || "", "", this.authService.currentUser, [])
-    this.postService.upsertPost({...this.inputComment, comments: [...this.inputComment.comments, newComment]})
-      .subscribe(
-        (response) => {
-          this.inputComment = response
-          this.toggleReplyToComment()
-        }
-      )
-  }
+	deleteComment = () => {
+		console.log("comment deleted");
+	};
 }
