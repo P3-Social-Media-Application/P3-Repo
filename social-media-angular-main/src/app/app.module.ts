@@ -16,6 +16,10 @@ import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserInitialsPipe } from './pipes/user-initials.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PasswordChangeComponent } from './components/password-change/password-change.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AboutMeComponent } from './components/about-me/about-me.component';
+import { PetsComponent } from './components/pets/pets.component';
+import { MyDetailsComponent } from './components/my-details/my-details.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,10 @@ import { PasswordChangeComponent } from './components/password-change/password-c
     NavbarComponent,
     UserInitialsPipe,
     PasswordChangeComponent,
+    ProfileComponent,
+    AboutMeComponent,
+    PetsComponent,
+    MyDetailsComponent,
   ],
   imports: [
     BrowserModule,

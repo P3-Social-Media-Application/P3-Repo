@@ -1,0 +1,16 @@
+.profilepic{
+ display: inline-block;
+margin-left: 30%;
+position: absolute;
+ 
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+}
+
+.tabs{
+    display:flex;
+    justify-content: center;
+}
