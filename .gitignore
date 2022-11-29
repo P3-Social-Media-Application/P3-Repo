@@ -10,16 +10,6 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# VSCODE #
-node_modules
-*/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-
 # Package Files #
 *.jar
 *.war
@@ -30,8 +20,32 @@ testem.log
 *.rar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-/.metadata/
+hs_err_pid
+
+# Compiled class file
+*.class
+target/
+
+# Eclipse
+.project
+.classpath
+.settings/
+.metadata/
+
+# MacOS & System Files
+.DS_Store
+Thumbs.db
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
 
 # IDEs and editors
 .idea/
@@ -39,5 +53,22 @@ hs_err_pid*
 .classpath
 .c9/
 *.launch
-*/social-media-spring-main/.settings/
+.settings/
 *.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
