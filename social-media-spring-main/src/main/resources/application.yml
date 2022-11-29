@@ -3,9 +3,9 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect
-    defer-datasource-initialization: false
+    defer-datasource-initialization: true
   datasource:
     url: jdbc:h2:mem:memdb
     driver-class-name: org.h2.Driver
