@@ -23,7 +23,7 @@
 				class="comment-container"
 			>
 				<mat-divider></mat-divider>
-				<app-comment [comment]="comment" [currentUser]="currentUser"></app-comment>
+				<app-comment [comment]="comment" [currentUser]="currentUser" (deleteCommentEvent)="refreshPosts($event)"></app-comment>
 			</div>
 		</mat-card-content>
 		<mat-card-actions align="end">

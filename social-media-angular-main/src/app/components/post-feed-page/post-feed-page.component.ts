@@ -33,7 +33,9 @@ export class PostFeedPageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.postService.getAllPosts().subscribe((response) => {
-			this.posts = response;
+			this.posts = response.filter((post)=>
+				post.comment == false
+			);
 		});
 	}
 
@@ -50,7 +52,8 @@ export class PostFeedPageComponent implements OnInit {
 					this.postForm.value.text || "",
 					this.postForm.value.imageUrl || "",
 					this.authService.currentUser,
-					[]
+					[],
+					false
 				)
 			)
 			.subscribe((response) => {
@@ -62,7 +65,9 @@ export class PostFeedPageComponent implements OnInit {
 	refreshPosts = (deleteBool: boolean) => {
 		if (deleteBool) {
 			this.postService.getAllPosts().subscribe((response) => {
-				this.posts = response;
+				this.posts = response.filter((post)=>
+				post.comment == false
+			);
 			});
 		}
 	};

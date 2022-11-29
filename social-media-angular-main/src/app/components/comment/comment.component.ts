@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import Post from "src/app/models/Post";
 import User from "src/app/models/User";
@@ -18,9 +18,12 @@ export class CommentComponent implements OnInit {
 	@Input("comment") inputComment: Post;
 	replyToComment: boolean = false;
 
-  @Input()
-  currentUser:User;
+	@Input()
+	currentUser:User;
   
+	@Output()
+	deleteCommentEvent = new EventEmitter();
+
 	constructor(
 		private postService: PostService,
 		private authService: AuthService
@@ -39,7 +42,8 @@ export class CommentComponent implements OnInit {
 			this.commentForm.value.text || "",
 			"",
 			this.authService.currentUser,
-			[]
+			[],
+			true
 		);
 		this.postService
 			.upsertPost({
@@ -52,7 +56,14 @@ export class CommentComponent implements OnInit {
 			});
 	};
 
-	deleteComment = () => {
-		console.log("comment deleted");
+	deleteComment = (post: Post) => {
+		if (
+			window.confirm("Are sure you want to remove your comment?")
+		) {
+			this.postService.deleteComment(post).subscribe();
+			setTimeout(() => {
+			this.deleteCommentEvent.emit(true);
+		}, 250);
+		}
 	};
 }

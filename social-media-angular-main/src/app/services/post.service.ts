@@ -32,9 +32,9 @@ export class PostService {
 			withCredentials: environment.withCredentials,
 		});
 	}
-	
-	deleteComment(post:Post): Observable<any>{
-		return this.http.put<Post>(`${this.postUrl}`, post, {
+
+	deleteComment(post: Post): Observable<any> {
+		return this.http.post<Post>(`${this.postUrl}/comment`, post, {
 			headers: environment.headers,
 			withCredentials: environment.withCredentials,
 		});

@@ -12,14 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "posts")
 public class Post {
 
@@ -32,19 +25,21 @@ public class Post {
 	private List<Post> comments;
 	@ManyToOne
 	private User author;
+	private boolean comment;
 	
 	public Post() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(int id, String text, String imageUrl, List<Post> comments, User author) {
+	public Post(int id, String text, String imageUrl, List<Post> comments, User author, boolean comment) {
 		super();
 		this.id = id;
 		this.text = text;
 		this.imageUrl = imageUrl;
 		this.comments = comments;
 		this.author = author;
+		this.comment = comment;
 	}
 
 	public int getId() {
@@ -87,9 +82,17 @@ public class Post {
 		this.author = author;
 	}
 
+	public boolean isComment() {
+		return comment;
+	}
+
+	public void setComment(boolean comment) {
+		this.comment = comment;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(author, comments, id, imageUrl, text);
+		return Objects.hash(author, comment, comments, id, imageUrl, text);
 	}
 
 	@Override
@@ -101,13 +104,14 @@ public class Post {
 		if (getClass() != obj.getClass())
 			return false;
 		Post other = (Post) obj;
-		return Objects.equals(author, other.author) && Objects.equals(comments, other.comments) && id == other.id
+		return Objects.equals(author, other.author) && comment == other.comment
+				&& Objects.equals(comments, other.comments) && id == other.id
 				&& Objects.equals(imageUrl, other.imageUrl) && Objects.equals(text, other.text);
 	}
 
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", text=" + text + ", imageUrl=" + imageUrl + ", comments=" + comments + ", author="
-				+ author + "]";
+				+ author + ", comment=" + comment + "]";
 	}
 }

@@ -28,9 +28,9 @@ export class PostComponent implements OnInit {
 	constructor(
 		private postService: PostService,
 		private authService: AuthService
-	) {}
+	) { }
 
-	ngOnInit(): void {}
+	ngOnInit(): void { }
 
 	toggleReplyToPost = () => {
 		this.replyToPost = !this.replyToPost;
@@ -43,7 +43,8 @@ export class PostComponent implements OnInit {
 			this.commentForm.value.text || "",
 			"",
 			this.authService.currentUser,
-			[]
+			[],
+			true
 		);
 		this.postService
 			.upsertPost({
@@ -57,9 +58,17 @@ export class PostComponent implements OnInit {
 	};
 
 	deletePost = (post: Post) => {
-		this.postService.deletePost(post).subscribe();
-		setTimeout(() => {
-			this.deletePostEvent.emit(true);
-		}, 250);
+		if (
+			window.confirm("Are sure you want to remove your comment?")
+		) {
+			this.postService.deletePost(post).subscribe();
+			setTimeout(() => {
+				this.deletePostEvent.emit(true);
+			}, 250);
+		}
+	};
+
+	refreshPosts = (refresh: boolean) => {
+		this.deletePostEvent.emit(true);
 	};
 }

@@ -44,7 +44,7 @@ public class PostController {
     
     @Authorized
     @PostMapping
-    public ResponseEntity<Object> deletePost(/*@RequestBody User user,*/ @RequestBody Post post, HttpSession session) {
+    public ResponseEntity<Object> deletePost(@RequestBody Post post, HttpSession session) {
     	
     	User currentUser = (User) session.getAttribute("user");
     	
@@ -52,6 +52,24 @@ public class PostController {
 			currentUser.getId() == post.getAuthor().getId()
 		) {
     		this.postService.deletePost(post);
+    		return ResponseEntity.ok("Deleted post " + post.getId());
+    	} else {
+    		return null;
+    	}
+    	
+    	
+    }
+    
+    @Authorized
+    @PostMapping("/comment")
+    public ResponseEntity<Object> deleteComment(@RequestBody Post post, HttpSession session) {
+    	
+    	User currentUser = (User) session.getAttribute("user");
+    	
+    	if (
+			currentUser.getId() == post.getAuthor().getId()
+		) {
+    		this.postService.deleteComment(post);
     		return ResponseEntity.ok("Deleted post " + post.getId());
     	} else {
     		return null;
