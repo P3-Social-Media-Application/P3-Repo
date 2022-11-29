@@ -23,4 +23,13 @@ public class PostService {
 	public Post upsert(Post post) {
 		return this.postRepository.save(post);
 	}
+
+	public void deletePost(Post post) {
+		this.postRepository.delete(post);
+	}
+	
+	public void deleteComment(Post post) {
+		this.postRepository.deleteComment(post.getId());
+		this.postRepository.delete(post);
+	}
 }
