@@ -57,7 +57,7 @@ export class PasswordChangeComponent implements OnInit {
     private _snackBar: MatSnackBar){
     
     this.empLogin = this.formBuilder.group({
-      oldPass: ["",[Validators.required,Validators.minLength(10)]],
+      oldPass: ["",[Validators.required]],
       newPass: ["",[Validators.required,Validators.minLength(10)]]
     })
   }
