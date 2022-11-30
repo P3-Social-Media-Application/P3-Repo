@@ -79,7 +79,4 @@ public class AuthController {
 	return authService.findByCredentials(someUser.getEmail());
     
     }
-    	
-    	
-    
 }

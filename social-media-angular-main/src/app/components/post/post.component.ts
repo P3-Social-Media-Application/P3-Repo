@@ -21,6 +21,9 @@ export class PostComponent implements OnInit {
 
 	@Input()
 	currentUser: User;
+	public set value(user : User) {
+		this.currentUser = user;
+	}
 
 	@Output()
 	deletePostEvent = new EventEmitter();
@@ -42,7 +45,7 @@ export class PostComponent implements OnInit {
 			0,
 			this.commentForm.value.text || "",
 			"",
-			this.authService.currentUser,
+			this.currentUser,
 			[],
 			true
 		);

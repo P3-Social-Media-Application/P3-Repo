@@ -2,6 +2,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	ElementRef,
+	Input,
 	OnInit,
 	ViewChild,
 } from "@angular/core";
@@ -24,7 +25,7 @@ export class PostFeedPageComponent implements OnInit {
 
 	posts: Post[] = [];
 	createPost: boolean = false;
-	currentUser: User = this.authService.currentUser;
+	currentUser: User;
 
 	constructor(
 		private postService: PostService,
@@ -36,6 +37,10 @@ export class PostFeedPageComponent implements OnInit {
 			this.posts = response.filter((post)=>
 				post.comment == false
 			);
+		});
+
+		this.authService.retrieveUser().subscribe((response) => {
+			this.currentUser = response
 		});
 	}
 
