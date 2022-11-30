@@ -41,7 +41,7 @@ export class CommentComponent implements OnInit {
 			0,
 			this.commentForm.value.text || "",
 			"",
-			this.authService.currentUser,
+			this.currentUser,
 			[],
 			true
 		);
