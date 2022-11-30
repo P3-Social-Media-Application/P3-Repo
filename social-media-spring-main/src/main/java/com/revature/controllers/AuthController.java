@@ -2,13 +2,19 @@ package com.revature.controllers;
 
 import com.revature.dtos.LoginRequest;
 import com.revature.dtos.RegisterRequest;
+import com.revature.models.PwordModel;
 import com.revature.models.User;
 import com.revature.services.AuthService;
+import com.revature.services.UserService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,8 +26,11 @@ public class AuthController {
 
     public AuthController(AuthService authService) {
         this.authService = authService;
+        
     }
-
+    
+   
+    	
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
         Optional<User> optional = authService.findByCredentials(loginRequest.getEmail(), loginRequest.getPassword());
@@ -53,4 +62,24 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(created));
     }
+    
+    @PostMapping("/change-password")
+	public boolean changePass(@RequestBody PwordModel pword, HttpSession session) {
+    	User someUser = (User)session.getAttribute("user");
+    	if(authService.updatePassword(someUser.getEmail(), pword.getOldPass(), pword.getNewPass())== true) {
+			return true;
+		}
+		return false;
+		
+    }
+    
+    @GetMapping("/user")
+    public Optional<User> user (HttpSession session){
+    User someUser = (User)session.getAttribute("user");
+	return authService.findByCredentials(someUser.getEmail());
+    
+    }
+    	
+    	
+    
 }

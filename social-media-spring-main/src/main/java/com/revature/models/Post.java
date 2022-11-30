@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +18,8 @@ import javax.persistence.Table;
 public class Post {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name="mysequence", initialValue=1000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="mysequence" )
     private int id;
 	private String text;
 	private String imageUrl;

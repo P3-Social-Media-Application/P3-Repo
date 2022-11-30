@@ -23,4 +23,13 @@ export class NavbarComponent implements OnInit{
     this.router.navigate(['login']);
   }
 
+  profile() {
+    
+    this.router.navigate(['profile']);
+  }
+  posts() {
+    
+    this.router.navigate(['post-feed']);
+  }
+
 }

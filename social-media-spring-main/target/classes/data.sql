@@ -1,10 +1,11 @@
-INSERT INTO users (id, email, password, first_name, last_name) VALUES (
-    1,
-    'testuser@gmail.com',
-    'password',
-    'Test',
-    'User'
-);
+//INSERT INTO users (id, email, password, first_name, last_name) VALUES (
+//   1,
+//    'testuser@gmail.com',
+//    'password',
+//    'Test',
+//    'User'
+//);
+
 
 INSERT INTO posts (id, text, image_url, author_id, comment) VALUES (
     10000,
@@ -20,3 +21,4 @@ INSERT INTO posts (id, text, image_url, author_id, comment) VALUES (
     1,
     false
 );
+
