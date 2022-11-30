@@ -3,7 +3,8 @@
 </p>
 <button *ngIf="currentUser.id == inputComment.author.id" mat-raised-button color="warn" (click)="deleteComment(inputComment)">Delete</button>
 <div class="comment-reply" align="right">
-    <div class="comment-reply-text" (click)="toggleReplyToComment()">
+    <div class="comment-reply-text" (click)="toggleReplyToComment()"
+    *ngIf="inputComment">
         reply
     </div>
     <form class="form" *ngIf="replyToComment" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">

@@ -24,6 +24,9 @@ export class CommentComponent implements OnInit {
 	@Output()
 	deleteCommentEvent = new EventEmitter();
 
+	@Output()
+	commentEventEmitter = new EventEmitter();
+
 	constructor(
 		private postService: PostService,
 		private authService: AuthService
@@ -53,6 +56,7 @@ export class CommentComponent implements OnInit {
 			.subscribe((response) => {
 				this.inputComment = response;
 				this.toggleReplyToComment();
+				this.commentEventEmitter.emit(true);
 			});
 	};
 
