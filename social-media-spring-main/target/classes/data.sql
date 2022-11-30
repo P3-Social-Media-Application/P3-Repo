@@ -6,15 +6,19 @@
 //    'User'
 //);
 
-//INSERT INTO posts (id, text, image_url, author_id) VALUES (
-//    10000,
-//    'The classic',
-//    'https://i.imgur.com/fhgzVEt.jpeg',
-//    1
-//),
-//(
-//    10001,
-//    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-//    '',
-//    1
-//); 
+
+INSERT INTO posts (id, text, image_url, author_id, comment) VALUES (
+    10000,
+    'The classic',
+    'https://i.imgur.com/fhgzVEt.jpeg',
+    1,
+    false
+),
+(
+    10001,
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    '',
+    1,
+    false
+);
+

@@ -6,12 +6,14 @@ export default class Post {
     imageUrl: string
     author: User
     comments: Post[]
+    comment: boolean
 
-    constructor (id: number, text: string, imageUrl: string, author: User, comments: Post[]) {
+    constructor (id: number, text: string, imageUrl: string, author: User, comments: Post[], isComment: boolean) {
         this.id = id
         this.text = text
         this.imageUrl = imageUrl
         this.author = author
         this.comments = comments
+        this.comment = isComment
     }
 }

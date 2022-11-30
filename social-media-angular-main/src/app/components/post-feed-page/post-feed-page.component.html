@@ -31,6 +31,6 @@
     </ng-template>
 
     <div id="post-feed" *ngFor="let post of posts">
-        <app-post [post]="post"></app-post>
+        <app-post [post]="post" [currentUser]="currentUser" (deletePostEvent)="refreshPosts($event)"></app-post>
     </div>
 </div>
