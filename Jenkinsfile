@@ -19,7 +19,7 @@ pipeline{
             steps{
                  withEnv(['JENKINS_NODE_COOKIE=dontKillMe']){
                     echo 'Deploying app...'
-                    sh 'java -jar ./target/*.jar &'
+                    sh 'java -jar ./social-media-spring-main/target/*.jar &'
                  }
             }
         }
