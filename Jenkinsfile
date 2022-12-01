@@ -5,7 +5,7 @@ pipeline{
         stage('Build'){
             steps{
                 echo 'Building after webhook added...'
-                sh 'sudo sh  ./social-media-spring-main/mvnw clean package -DskipTests'
+                sh 'sudo sh ./mvnw clean package -DskipTests'
             }
         }
 
@@ -19,7 +19,7 @@ pipeline{
             steps{
                  withEnv(['JENKINS_NODE_COOKIE=dontKillMe']){
                     echo 'Deploying app...'
-                    sh 'java -jar ./social-media-spring-main/target/*.jar &'
+                    sh 'java -jar ./target/*.jar &'
                  }
             }
         }
