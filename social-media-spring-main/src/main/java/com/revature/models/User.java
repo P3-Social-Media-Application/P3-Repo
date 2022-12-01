@@ -8,10 +8,10 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
-@Data
+//@Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
