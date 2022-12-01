@@ -1,10 +1,22 @@
-{{myInfo}}
+<div id="info-display">
+	<p>
+		{{ myInfo }}
+	</p>
+</div>
+
 <div *ngIf="submitted == false">
-<form [formGroup]="aboutMe" (ngSubmit)="onSubmit()">
-<mat-form-field class="full-width" appearance="fill">
-    <mat-label>Introduce Yourself!</mat-label>
-    <textarea matInput autofocus formControlName="aboutMe" required></textarea>
-</mat-form-field>
-</form>
-<button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+	<form [formGroup]="aboutMe" (ngSubmit)="onSubmit()">
+		<mat-form-field class="full-width" appearance="fill">
+			<mat-label>Introduce Yourself!</mat-label>
+			<textarea
+				matInput
+				autofocus
+				formControlName="aboutMe"
+				required
+			></textarea>
+		</mat-form-field>
+	</form>
+	<button mat-raised-button color="primary" (click)="onSubmit()">
+		Submit
+	</button>
 </div>
