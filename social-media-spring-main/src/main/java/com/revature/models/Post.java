@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class Post {
 
 	@Id
-	@SequenceGenerator(name="mysequence", initialValue=1000)
+	@SequenceGenerator(name="mysequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="mysequence" )
     private int id;
 	private String text;
