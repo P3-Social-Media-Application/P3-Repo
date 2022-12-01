@@ -1,13 +1,13 @@
-.profilepic{
- display: inline-block;
-margin-left: 30%;
-position: absolute;
- 
+.profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .card{
     display: flex;
     justify-content: center;
+    max-width: fit-content;
 }
 
 .tabs{
