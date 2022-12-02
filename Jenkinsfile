@@ -1,26 +1,27 @@
-pipeline {
-agent any
-stages {
-stage ('Compile Stage') {
-steps {
-withMaven(maven : 'apache-maven-3.6.1') {
-bat'mvn clean compile'
-}
-}
-}
-stage ('Testing Stage') {
-steps {
-withMaven(maven : 'apache-maven-3.6.1') {
-bat'mvn test'
-}
-}
-}
-stage ('Install Stage') {
-steps {
-withMaven(maven : 'apache-maven-3.6.1') {
-bat'mvn install'
-}
-}
-}
-}
+pipeline{
+    agent any
+
+    stages{
+        stage('Build'){
+            steps{
+                echo 'Building after webhook added...'
+                sh 'sudo sh ./social-media-spring-main/mvnw clean package -DskipTests'
+            }
+        }
+
+        stage('Test'){
+            steps{
+                echo 'Running tests...'
+            }
+        }
+
+        stage('Deploy'){
+            steps{
+                 withEnv(['JENKINS_NODE_COOKIE=dontKillMe']){
+                    echo 'Deploying app...'
+                    sh 'java -jar ./target/*.jar &'
+                 }
+            }
+        }
+    }
 }
