@@ -5,7 +5,7 @@ pipeline{
         stage('Build'){
             steps{
                 echo 'Building after webhook added...'
-                sh 'sudo sh ./social-media-spring-main/mvnw clean package -DskipTests'
+                sh 'sudo sh ./mvnw clean package -DskipTests'
             }
         }
 
