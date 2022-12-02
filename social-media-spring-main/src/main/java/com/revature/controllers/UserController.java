@@ -41,4 +41,17 @@ public class UserController {
 		return ResponseEntity.ok(retrievedUser);
 	}
 	
+	@PostMapping
+	public ResponseEntity<Boolean> checkUserExistsByEmail(@RequestBody User user,HttpSession session) {
+		User retrievedUser = userService.findUserByEmail(user.getEmail());
+		
+		if (retrievedUser != null) {
+			return ResponseEntity.ok(true);
+		}else {
+			return ResponseEntity.ok(false);
+		}
+		
+		
+	}
+	
 }
