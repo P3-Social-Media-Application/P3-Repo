@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('')
   })
   
+  errorMessage:String;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -26,9 +27,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value.email || "", this.loginForm.value.password || "")
       .subscribe(
         (response) => {
-          this.authService.currentUser = response
+          this.authService.currentUser = response.body
           this.router.navigate(['post-feed'])
-        }
+        },(error)=>{this.errorMessage = "Invalid Credentials"}
       )
   }
 
