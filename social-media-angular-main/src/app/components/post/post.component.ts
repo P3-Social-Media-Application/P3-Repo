@@ -15,9 +15,14 @@ export class PostComponent implements OnInit {
 	commentForm = new FormGroup({
 		text: new FormControl(""),
 	});
+	postForm = new FormGroup({
+		text: new FormControl(''),
+		imageUrl: new FormControl('')
+	})
 
 	@Input("post") post: Post;
 	replyToPost: boolean = false;
+	editPost: boolean = false;
 
 	@Input()
 	currentUser: User;
@@ -38,6 +43,11 @@ export class PostComponent implements OnInit {
 	toggleReplyToPost = () => {
 		this.replyToPost = !this.replyToPost;
 	};
+
+	toggleEditPost = () => {
+		this.editPost = !this.editPost
+		this.replyToPost = false
+	  }
 
 	submitReply = (e: any) => {
 		e.preventDefault();
@@ -74,4 +84,17 @@ export class PostComponent implements OnInit {
 	refreshPosts = (refresh: boolean) => {
 		this.deletePostEvent.emit(true);
 	};
+
+	submitEditedPost = (e: any) => {
+		e.preventDefault()
+		let newPost = new Post(this.post.id, this.postForm.value.text || "", this.postForm.value.imageUrl || "", this.authService.currentUser, this.post.comments, false)
+		this.postService.updatePost(newPost)
+		  .subscribe(
+			(response) => {
+			  this.post = response
+			  this.toggleEditPost()
+			}
+		  )
+	  }
+	
 }

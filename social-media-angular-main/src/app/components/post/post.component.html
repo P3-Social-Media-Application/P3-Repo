@@ -38,6 +38,8 @@
 			>
 				Reply
 			</button>
+			<button class = "edit" mat-raised-button color="primary" (click)="toggleEditPost()" >Edit</button>
+
 		</mat-card-actions>
 		<form
 			class="form"
@@ -62,5 +64,26 @@
 				</button>
 			</div>
 		</form>
+		
+		<form class="editPost" *ngIf="editPost" [formGroup]="postForm" (ngSubmit)="submitEditedPost($event)" >
+        
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Edit Post</mat-label>
+                <textarea matInput autofocus formControlName="text"></textarea>
+                
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill" >
+                <mat-label>Change Image</mat-label>
+                <textarea matInput formControlName="imageUrl"></textarea>
+                
+            </mat-form-field>
+
+            <div align="end">
+                <button mat-raised-button color="warn" (click)="toggleEditPost()">Cancel</button>
+                <button mat-raised-button color="primary" type="submit">Edit</button>
+            </div>
+        </form>
+
 	</mat-card>
 </div>

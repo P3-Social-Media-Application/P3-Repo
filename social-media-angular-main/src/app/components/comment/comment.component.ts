@@ -17,6 +17,7 @@ export class CommentComponent implements OnInit {
 
 	@Input("comment") inputComment: Post;
 	replyToComment: boolean = false;
+	editPost: boolean = false
 
 	@Input()
 	currentUser:User;
@@ -36,7 +37,13 @@ export class CommentComponent implements OnInit {
 
 	toggleReplyToComment = () => {
 		this.replyToComment = !this.replyToComment;
+		//this.editPost = false;
 	};
+
+	toggleEditPost = () => {
+		this.editPost = !this.editPost;
+		//this.replyToComment = false;
+	  }
 
 	submitReply = (e: any) => {
 		e.preventDefault();
@@ -68,6 +75,23 @@ export class CommentComponent implements OnInit {
 			setTimeout(() => {
 			this.deleteCommentEvent.emit(true);
 		}, 250);
+		this.refreshComments
 		}
 	};
+
+	refreshComments = (refresh: boolean) => {
+		this.deleteCommentEvent.emit(true);
+	};
+
+	submitEditedPost = (e: any) => {
+		e.preventDefault()
+		let newPost = new Post(this.inputComment.id, this.commentForm.value.text || "", "", this.currentUser, this.inputComment.comments, true)
+		this.postService.updatePost(newPost)
+		  .subscribe(
+			(response) => {
+			  this.inputComment = response
+			  this.toggleEditPost()
+			}
+		  )
+	  }
 }

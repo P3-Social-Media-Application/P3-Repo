@@ -1,12 +1,19 @@
 <p>
     {{inputComment.text}}
-</p>
-<button *ngIf="currentUser.id == inputComment.author.id" mat-raised-button color="warn" (click)="deleteComment(inputComment)">Delete</button>
+</p> 
+
+<button *ngIf="currentUser.id == inputComment.author.id" mat-raised-button color="warn" (click)="deleteComment(inputComment)" >Delete</button>
+
 <div class="comment-reply" align="right">
+
     <div class="comment-reply-text" (click)="toggleReplyToComment()"
     *ngIf="inputComment">
         reply
     </div>
+    <div *ngIf=" (currentUser.id == inputComment.author.id) && (inputComment)" class="edit-reply-text" (click)="toggleEditPost()"  >
+        edit
+    </div>
+
     <form class="form" *ngIf="replyToComment" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Make a Post</mat-label>
@@ -17,6 +24,20 @@
             <button mat-raised-button color="primary" type="submit">Post</button>
         </div>
     </form>
+
+    <form class="editPost" *ngIf="editPost" [formGroup]="commentForm" (ngSubmit)="submitEditedPost($event)" >
+        
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Edit Post</mat-label>
+            <textarea matInput autofocus formControlName="text"></textarea>  
+        </mat-form-field>
+
+        <div align="end">
+            <button mat-raised-button color="warn" (click)="toggleEditPost()">Cancel</button>
+            <button mat-raised-button color="primary" type="submit">Edit</button>
+        </div>
+    </form>
+
 </div>
 <div *ngFor="let comment of inputComment.comments" class="comment-container">
     <mat-divider></mat-divider>

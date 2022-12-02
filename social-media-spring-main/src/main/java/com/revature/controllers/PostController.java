@@ -3,6 +3,8 @@ package com.revature.controllers;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.http.MediaType;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,9 +57,7 @@ public class PostController {
     		return ResponseEntity.ok("Deleted post " + post.getId());
     	} else {
     		return null;
-    	}
-    	
-    	
+    	}	
     }
     
     @Authorized
@@ -73,8 +73,14 @@ public class PostController {
     		return ResponseEntity.ok("Deleted post " + post.getId());
     	} else {
     		return null;
-    	}
-    	
-    	
+    	} 	
+    }
+    
+    @Authorized
+    @PutMapping(
+    		value = "/updatePost", consumes = {MediaType.APPLICATION_JSON_VALUE}
+    		)
+    public ResponseEntity<Post> updatePost(HttpServletRequest request, @RequestBody Post post) {
+    	return ResponseEntity.ok(this.postService.updatePost(post));
     }
 }

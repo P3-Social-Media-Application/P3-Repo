@@ -33,4 +33,8 @@ public class PostService {
 		this.postRepository.deleteComment(post.getId());
 		this.postRepository.delete(post);
 	}
+	
+	public Post updatePost(Post post) {
+		return this.postRepository.save(post);
+	}
 }
