@@ -1,11 +1,17 @@
 package com.revature.serviceTest;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
@@ -16,6 +22,9 @@ import com.revature.repositories.PostRepository;
 import com.revature.repositories.UserRepository;
 import com.revature.services.PostService;
 
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,99 +33,62 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@SpringBootTest
 public class PostServiceTest {
-	@Mock
+	@MockBean
 	private PostRepository postRepository;
-	
-	@Mock
-	private UserRepository userRepository;
-	
+
+	@Autowired
 	private PostService postService;
-	
-	Post comment;
-	Post post;
-	User user;
-	
-	@BeforeEach
-	void setUp() {
-		this.postService = new PostService(this.postRepository);
+
+	@Test
+	void getAllTest() {
+		List<Post> posts = new ArrayList<>();
+		posts.add(new Post(9999, "test post text", "no image", new ArrayList<>(), new User(), false));
+		posts.add(new Post(10000, "test post text", "no image", new ArrayList<>(), new User(), false));
 		
-		this.user = new User(
-				999,
-				"testemail@blahblah.com",
-				"password",
-				"test",
-				"user"
-			);
-		
-		this.comment = new Post(
-				999999,
-				"test comment",
-				"no image",
-				new ArrayList<Post>(),
-				this.user,
-				true
-			);
-		
-		List<Post> comments = new ArrayList<Post>();
-		comments.add(this.comment);
-		
-		this.post = new Post(
-				"test post",
-				"no image",
-				comments,
-				this.user,
-				false
-			);
-		
-		this.userRepository.save(this.user);
-		this.postRepository.save(this.comment);
-		this.postRepository.save(this.post);
+		when(postRepository.findAll()).thenReturn(posts);
+		List<Post> actualResult = postService.getAll();
+		assertThat(actualResult).isEqualTo(posts);
 	}
-	
-//	@Test
-//	void getAllTest() {
-//		
-//	}
-//	
-//	@Test
-//	void upsertTest() {
-//		
-//	}
-//	
-//	@Test
-//	void deletePostTest() {
-//		
-//	}
-	
+
+	@Test
+	void upsertTest() {
+		List<Post> comments = new ArrayList<>();
+
+		Post post = new Post(9999, "test post text", "no image", comments, new User(), false);
+
+		when(postRepository.save(post)).thenReturn(post);
+		Post actualResult = postService.upsert(post);
+		assertThat(actualResult).isEqualTo(post);
+	}
+
+	@Test
+	void deletePostTest() {
+		List<Post> comments = new ArrayList<>();
+
+		Post post = new Post(9999, "test post text", "no image", comments, new User(), false);
+
+		this.postService.deletePost(post);
+		verify(postRepository, times(1)).delete(post);
+	}
+
 	@Test
 	void deleteCommentTest() {
-		List<Post> commentList = postRepository.findAll();
-		System.out.println(commentList.toString());
-		
-		postService.deleteComment(post);
-		
-		boolean containsComment = false;
-		
-		if (commentList.size() > 0) {
-			for (Post p : commentList) {
-				if (p.getId() == 999999) {
-					containsComment = true;
-				}
-			}
-		}
-		
-        assertThat(containsComment).isFalse();
+		List<Post> comments = new ArrayList<>();
+
+		Post post = new Post(9999, "test post text", "no image", comments, new User(), true);
+
+		this.postService.deleteComment(post);
+		verify(postRepository, times(1)).deleteComment(9999);
 	}
-	
-//	@Test
-//	void updatePostTest() {
-//		
-//	}
+
+	@Test
+	void updatePostTest() {
+		Post post = new Post(9999, "test post text", "no image", new ArrayList<>(), new User(), false);
+		
+		when(postRepository.save(post)).thenReturn(post);
+		Post actualResult = postService.updatePost(post);
+		assertThat(actualResult).isEqualTo(post);
+	}
 }
-
-
-
-
-
-
