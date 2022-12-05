@@ -18,7 +18,7 @@ import com.revature.models.User;
 import com.revature.repositories.UserRepository;
 import com.revature.services.UserService;
 
-@SpringBootTest
+@SpringBootTest()
 public class UserServiceTest {
 	@MockBean
 	private UserRepository userRepository;

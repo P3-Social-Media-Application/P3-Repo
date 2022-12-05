@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.models.Post;
 import com.revature.models.User;
@@ -33,7 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-@SpringBootTest
+@SpringBootTest(classes = PostService.class)
 public class PostServiceTest {
 	@MockBean
 	private PostRepository postRepository;
