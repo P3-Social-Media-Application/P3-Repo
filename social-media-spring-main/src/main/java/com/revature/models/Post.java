@@ -33,6 +33,15 @@ public class Post {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Post(String text, String imageUrl, List<Post> comments, User author, boolean comment) {
+		super();
+		this.text = text;
+		this.imageUrl = imageUrl;
+		this.comments = comments;
+		this.author = author;
+		this.comment = comment;
+	}
 
 	public Post(int id, String text, String imageUrl, List<Post> comments, User author, boolean comment) {
 		super();
