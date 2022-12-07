@@ -17,11 +17,11 @@ export class CommentComponent implements OnInit {
 
 	@Input("comment") inputComment: Post;
 	replyToComment: boolean = false;
-	editPost: boolean = false
+	editPost: boolean = false;
 
 	@Input()
-	currentUser:User;
-  
+	currentUser: User;
+
 	@Output()
 	deleteCommentEvent = new EventEmitter();
 
@@ -43,7 +43,7 @@ export class CommentComponent implements OnInit {
 	toggleEditPost = () => {
 		this.editPost = !this.editPost;
 		//this.replyToComment = false;
-	  }
+	};
 
 	submitReply = (e: any) => {
 		e.preventDefault();
@@ -68,30 +68,33 @@ export class CommentComponent implements OnInit {
 	};
 
 	deleteComment = (post: Post) => {
-		if (
-			window.confirm("Are sure you want to remove your comment?")
-		) {
+		if (window.confirm("Are sure you want to remove your comment?")) {
 			this.postService.deleteComment(post).subscribe();
 			setTimeout(() => {
-			this.deleteCommentEvent.emit(true);
-		}, 250);
-		this.refreshComments
+				this.deleteCommentEvent.emit(true);
+			}, 250);
+			this.refreshComments(true);
+			window.location.reload();
 		}
 	};
 
 	refreshComments = (refresh: boolean) => {
-		this.deleteCommentEvent.emit(true);
+		this.deleteCommentEvent.emit(refresh);
 	};
 
 	submitEditedPost = (e: any) => {
-		e.preventDefault()
-		let newPost = new Post(this.inputComment.id, this.commentForm.value.text || "", "", this.currentUser, this.inputComment.comments, true)
-		this.postService.updatePost(newPost)
-		  .subscribe(
-			(response) => {
-			  this.inputComment = response
-			  this.toggleEditPost()
-			}
-		  )
-	  }
+		e.preventDefault();
+		let newPost = new Post(
+			this.inputComment.id,
+			this.commentForm.value.text || "",
+			"",
+			this.currentUser,
+			this.inputComment.comments,
+			true
+		);
+		this.postService.updatePost(newPost).subscribe((response) => {
+			this.inputComment = response;
+			this.toggleEditPost();
+		});
+	};
 }

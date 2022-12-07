@@ -5,6 +5,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,8 +38,13 @@ public class AboutController {
 		}
 	    
 	    @GetMapping("/get-info")
-	    public Optional<AboutInfo> getAboutInfo(HttpSession session) {
+	    public ResponseEntity<Object> getAboutInfo(HttpSession session) {
 	    	User someUser = (User)session.getAttribute("user");
-	    	return aboutService.getInfo(someUser.getId());
+	    	Optional<AboutInfo> aboutOpt = aboutService.getInfo(someUser.getId());
+	    	if (aboutOpt.isEmpty()) {
+	    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	    	}else {
+	    		return ResponseEntity.ok(aboutOpt.get());
+	    	}
 	    }
 }
