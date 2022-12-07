@@ -38,7 +38,7 @@ public class AboutServiceTest {
 		AboutInfo info = new AboutInfo(9999, "about text", 999);
 		Optional<AboutInfo> infoOpt = Optional.of(info);
 
-		when(aboutRepository.findById(999)).thenReturn(infoOpt);
+		when(aboutRepository.findByUserID(999)).thenReturn(infoOpt);
 		Optional<AboutInfo> actualResult = aboutService.getInfo(999);
 		assertThat(actualResult).isEqualTo(infoOpt);
 	}

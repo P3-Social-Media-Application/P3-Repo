@@ -1,38 +1,19 @@
 package com.revature.serviceTest;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import com.revature.models.Post;
 import com.revature.models.User;
 import com.revature.repositories.PostRepository;
-import com.revature.repositories.UserRepository;
 import com.revature.services.PostService;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
+
 
 @SpringBootTest(classes = PostService.class)
 public class PostServiceTest {

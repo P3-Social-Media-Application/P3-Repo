@@ -38,7 +38,8 @@ export class PostComponent implements OnInit {
 		private authService: AuthService
 	) { }
 
-	ngOnInit(): void { }
+	ngOnInit(): void {
+	}
 
 	toggleReplyToPost = () => {
 		this.replyToPost = !this.replyToPost;
@@ -68,6 +69,7 @@ export class PostComponent implements OnInit {
 				this.post = response;
 				this.toggleReplyToPost();
 			});
+			window.location.reload();
 	};
 
 	deletePost = (post: Post) => {
@@ -82,7 +84,7 @@ export class PostComponent implements OnInit {
 	};
 
 	refreshPosts = (refresh: boolean) => {
-		this.deletePostEvent.emit(true);
+		this.deletePostEvent.emit(refresh);
 	};
 
 	submitEditedPost = (e: any) => {

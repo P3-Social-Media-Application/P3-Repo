@@ -15,4 +15,12 @@ export class AboutInfoService {
     return  this._http.post<any>(this._url, info, {withCredentials: true , observe: "response" as "body"} )
      
   }
+  
+  getInfo(){
+    return this._http
+    .get("http://localhost:8080/about/get-info", {
+      withCredentials: true,
+      observe: "response" as "body",
+    })
+  }
 }

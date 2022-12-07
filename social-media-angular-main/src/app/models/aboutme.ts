@@ -1,11 +1,3 @@
 export class aboutMe {
-    constructor(
-        id : number,
-        aboutMe : string,
-        userID : number,
-    ){}
-
-
-
-
+	constructor(id: number, about_Me: string, userID: number) {}
 }

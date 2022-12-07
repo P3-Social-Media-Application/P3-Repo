@@ -1,11 +1,11 @@
-<div id="info-display">
+<div *ngIf="myInfo" id="info-display">
 	<p>
 		{{ myInfo }}
 	</p>
 </div>
 
 <div *ngIf="submitted == false">
-	<form [formGroup]="aboutMe" (ngSubmit)="onSubmit()">
+	<form [formGroup]="aboutMe">
 		<mat-form-field class="full-width" appearance="fill">
 			<mat-label>Introduce Yourself!</mat-label>
 			<textarea

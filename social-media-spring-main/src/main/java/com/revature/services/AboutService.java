@@ -21,7 +21,7 @@ public class AboutService {
 	    }
 	 
 	 public Optional<AboutInfo> getInfo(int id) {
-		 return aboutRepository.findById(id);
+		 return aboutRepository.findByUserID(id);
 	 }
 	 
 }
