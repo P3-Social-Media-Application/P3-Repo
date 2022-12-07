@@ -80,7 +80,7 @@ public class PostControllerTest {
 	}
 
 	@Test
-	void deletePostTest() throws Exception {
+	void deletePostSuccessTest() throws Exception {
 		User user = new User(99999, "testtestuser@example.com", "password", "test", "testuser");
 		Post postTest = new Post(9999, "post text", "no image", new ArrayList<Post>(), user, false);
 		session.setAttribute("user", user);
@@ -94,9 +94,26 @@ public class PostControllerTest {
 
 		assertThat(actualResult).isEqualTo("Deleted post " + postTest.getId());
 	}
+	
+	@Test
+	void deletePostFailureTest() throws Exception {
+		User user = new User(99999, "testtestuser@example.com", "password", "test", "testuser");
+		User userWrong = new User(99998, "testuser@example.com", "password", "test", "user");
+		Post postTest = new Post(9999, "post text", "no image", new ArrayList<Post>(), userWrong, false);
+		session.setAttribute("user", user);
+
+		String json = mapper.writeValueAsString(postTest);
+
+		MvcResult requestResult = mockMvc.perform(post("/post").session(session).contentType(MediaType.APPLICATION_JSON)
+				.characterEncoding("utf-8").content(json).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+		String actualResult = requestResult.getResponse().getContentAsString();
+
+		assertThat(actualResult.length()).isEqualTo(0);
+	}
 
 	@Test
-	void deleteCommentTest() throws Exception {
+	void deleteCommentSuccessTest() throws Exception {
 		User user = new User(99999, "testtestuser@example.com", "password", "test", "testuser");
 		Post postTest = new Post(9999, "comment text", "no image", new ArrayList<Post>(), user, true);
 		session.setAttribute("user", user);
@@ -111,6 +128,23 @@ public class PostControllerTest {
 		String actualResult = requestResult.getResponse().getContentAsString();
 
 		assertThat(actualResult).isEqualTo("Deleted comment " + postTest.getId());
+	}
+	
+	@Test
+	void deleteCommentFailureTest() throws Exception {
+		User user = new User(99999, "testtestuser@example.com", "password", "test", "testuser");
+		User userWrong = new User(99998, "testuser@example.com", "password", "test", "user");
+		Post postTest = new Post(9999, "post text", "no image", new ArrayList<Post>(), userWrong, false);
+		session.setAttribute("user", user);
+
+		String json = mapper.writeValueAsString(postTest);
+
+		MvcResult requestResult = mockMvc.perform(post("/post/comment").session(session).contentType(MediaType.APPLICATION_JSON)
+				.characterEncoding("utf-8").content(json).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+		String actualResult = requestResult.getResponse().getContentAsString();
+
+		assertThat(actualResult.length()).isEqualTo(0);
 	}
 
 	@Test

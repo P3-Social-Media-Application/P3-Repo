@@ -27,14 +27,14 @@ public class AuthServiceTest {
 
 	@Autowired
 	private AuthService authService;
-	
+
 	User user;
-	
+
 	@BeforeEach
 	void setUp() {
 		this.user = new User("testemail@example.com", "password", "firstName", "lastName");
 	}
-	
+
 	@Test
 	void findByCredentialsEmailPasswordTest() {
 		Optional<User> returningUser = Optional.of(this.user);
@@ -42,7 +42,7 @@ public class AuthServiceTest {
 		Optional<User> actualResult = authService.findByCredentials("testemail@example.com", "password");
 		assertThat(actualResult).isEqualTo(returningUser);
 	}
-	
+
 	@Test
 	void findByCredentialsEmailTest() {
 		Optional<User> returningUser = Optional.of(this.user);
@@ -59,14 +59,30 @@ public class AuthServiceTest {
 	}
 
 	@Test
-	void updatePasswordTest() {
+	void updatePasswordSuccessTest() {
 		List<User> userList = new LinkedList<>();
 		userList.add(user);
 		userList.add(new User());
-		
+
 		when(userService.findAll()).thenReturn(userList);
 		when(userService.save(user)).thenReturn(user);
+		
 		boolean actualResult = authService.updatePassword("testemail@example.com", "password", "password1");
+		
 		assertThat(actualResult).isTrue();
+	}
+
+	@Test
+	void updatePasswordFailureTest() {
+		User otherUser = new User("testemail@example.com", "password", "firstName", "lastName");
+		List<User> userList = new LinkedList<>();
+		userList.add(user);
+		userList.add(otherUser);
+
+		when(userService.findAll()).thenReturn(userList);
+		
+		boolean actualResult = authService.updatePassword("testemailfail@example.com", "password", "password1");
+		
+		assertThat(actualResult).isFalse();
 	}
 }

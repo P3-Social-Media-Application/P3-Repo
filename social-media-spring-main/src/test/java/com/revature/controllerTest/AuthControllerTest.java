@@ -53,7 +53,7 @@ public class AuthControllerTest {
 	private static ObjectMapper mapper = new ObjectMapper();
 	
 	@Test
-	void loginTest() throws Exception {
+	void loginSuccessTest() throws Exception {
 		LoginRequest login = new LoginRequest("testtestuser@example.com", "password");
 		User user = new User(99999, "testtestuser@example.com", "password", "test", "testuser");
 		Optional<User> userOpt = Optional.of(user);
@@ -70,6 +70,23 @@ public class AuthControllerTest {
 		User userResult = new ObjectMapper().readValue(actualResult, User.class);
 
 		assertThat(userResult).isEqualTo(user);
+	}
+	
+	@Test
+	void loginFailureTest() throws Exception {
+		LoginRequest login = new LoginRequest("testtestuser@example.com", "password");
+		Optional<User> userOpt = Optional.empty();
+
+		when(authService.findByCredentials(login.getEmail(), login.getPassword())).thenReturn(userOpt);
+
+		String json = mapper.writeValueAsString(login);
+
+		MvcResult requestResult = mockMvc.perform(post("/auth/login").session(session).contentType(MediaType.APPLICATION_JSON)
+				.characterEncoding("utf-8").content(json).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+		int actualResult = requestResult.getResponse().getStatus();
+		
+		assertThat(actualResult).isEqualTo(400); // 400 is http code for "bad request"
 	}
 	
 	@Test
@@ -102,7 +119,7 @@ public class AuthControllerTest {
 	}
 	
 	@Test
-	void changePassTest() throws Exception {
+	void changePassSuccessTest() throws Exception {
 		PwordModel passwords = new PwordModel("password", "password1");
 		User user = new User(99999, "testtestuser@example.com", "password", "test", "testuser");
 		
@@ -115,6 +132,26 @@ public class AuthControllerTest {
 				.characterEncoding("utf-8").content(json).accept(MediaType.APPLICATION_JSON)).andReturn();
 		
 		verify(authService, times(1)).updatePassword(user.getEmail(), passwords.getOldPass(), passwords.getNewPass());
+	}
+	
+	@Test
+	void changePassFailureTest() throws Exception {
+		PwordModel passwords = new PwordModel("password", "password1");
+		User user = new User(99999, "testtestuser@example.com", "password", "test", "testuser");
+		
+		when(authService.updatePassword(user.getEmail(), passwords.getOldPass(), passwords.getNewPass())).thenReturn(false);
+		when(session.getAttribute("user")).thenReturn(user);
+		
+		String json = mapper.writeValueAsString(passwords);
+
+		MvcResult requestResult = mockMvc.perform(post("/auth/change-password").session(session).contentType(MediaType.APPLICATION_JSON)
+				.characterEncoding("utf-8").content(json).accept(MediaType.APPLICATION_JSON)).andReturn();
+		
+		String actualResult = requestResult.getResponse().getContentAsString();
+		
+		Boolean passwordChangeResult = new ObjectMapper().readValue(actualResult, Boolean.class);
+		
+		assertThat(passwordChangeResult).isFalse();
 	}
 	
 	@Test
