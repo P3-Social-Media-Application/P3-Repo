@@ -36,6 +36,15 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
+	
+	public User(int id, String email, String password, String firstName, String lastName) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public int getId() {
 		return id;

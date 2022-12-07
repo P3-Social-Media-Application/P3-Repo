@@ -19,64 +19,58 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"}, allowCredentials = "true")
+@CrossOrigin(origins = { "http://localhost:4200", "http://localhost:3000" }, allowCredentials = "true")
 public class AuthController {
 
-    private final AuthService authService;
+	private final AuthService authService;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-        
-    }
-    
-   
-    	
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
-        Optional<User> optional = authService.findByCredentials(loginRequest.getEmail(), loginRequest.getPassword());
+	public AuthController(AuthService authService) {
+		this.authService = authService;
 
-        if(!optional.isPresent()) {
-            return ResponseEntity.badRequest().build();
-        }
+	}
 
-        session.setAttribute("user", optional.get());
+	@PostMapping("/login")
+	public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
+		Optional<User> optional = authService.findByCredentials(loginRequest.getEmail(), loginRequest.getPassword());
 
-        return ResponseEntity.ok(optional.get());
-    }
+		if (!optional.isPresent()) {
+			return ResponseEntity.badRequest().build();
+		}
 
-    @PostMapping("/logout")
-    public ResponseEntity<Void> logout(HttpSession session) {
-        session.removeAttribute("user");
+		session.setAttribute("user", optional.get());
 
-        return ResponseEntity.ok().build();
-    }
+		return ResponseEntity.ok(optional.get());
+	}
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest registerRequest) {
-        User created = new User(
-                registerRequest.getEmail(),
-                registerRequest.getPassword(),
-                registerRequest.getFirstName(),
-                registerRequest.getLastName()
-                );
+	@PostMapping("/logout")
+	public ResponseEntity<Void> logout(HttpSession session) {
+		session.removeAttribute("user");
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(created));
-    }
-    
-    @PostMapping("/change-password")
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/register")
+	public ResponseEntity<User> register(@RequestBody RegisterRequest registerRequest) {
+		User created = new User(registerRequest.getEmail(), registerRequest.getPassword(),
+				registerRequest.getFirstName(), registerRequest.getLastName());
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(created));
+	}
+
+	@PostMapping("/change-password")
 	public boolean changePass(@RequestBody PwordModel pword, HttpSession session) {
-    	User someUser = (User)session.getAttribute("user");
-    	if(authService.updatePassword(someUser.getEmail(), pword.getOldPass(), pword.getNewPass())== true) {
+		User someUser = (User) session.getAttribute("user");
+		if (authService.updatePassword(someUser.getEmail(), pword.getOldPass(), pword.getNewPass()) == true) {
 			return true;
 		}
 		return false;
-		
-    }
-    
-    @GetMapping("/user")
-    public Optional<User> user (HttpSession session){
-    User someUser = (User)session.getAttribute("user");
-	return authService.findByCredentials(someUser.getEmail());
-    
-    }
+
+	}
+
+	@GetMapping("/user")
+	public Optional<User> user(HttpSession session) {
+		User someUser = (User) session.getAttribute("user");
+		return authService.findByCredentials(someUser.getEmail());
+
+	}
 }

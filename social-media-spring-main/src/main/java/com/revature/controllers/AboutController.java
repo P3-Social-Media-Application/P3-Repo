@@ -29,7 +29,6 @@ public class AboutController {
 	    }
 	    
 	    @PostMapping("/about-info")
-		
 		public void registerNewAccount(@RequestBody AboutInfo info, HttpSession session ) {
 	    	User someUser = (User)session.getAttribute("user");
 	    	info.setUserID(someUser.getId());
@@ -40,7 +39,5 @@ public class AboutController {
 	    public Optional<AboutInfo> getAboutInfo(HttpSession session) {
 	    	User someUser = (User)session.getAttribute("user");
 	    	return aboutService.getInfo(someUser.getId());
-			
-	    	
 	    }
 }
