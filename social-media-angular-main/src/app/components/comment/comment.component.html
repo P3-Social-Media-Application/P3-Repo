@@ -1,4 +1,3 @@
-
 <mat-card class="example-card" *ngIf="inputComment.author">
 
     <div *ngIf="currentUser.id == inputComment.author.id" id="close-icon-containter">
@@ -18,8 +17,6 @@
   
     </mat-card-content>
   </mat-card>
-
- 
 
 <!-- <button *ngIf="currentUser.id == inputComment.author.id" mat-raised-button color="warn" (click)="deleteComment(inputComment)" >Delete</button> -->
 
@@ -60,5 +57,5 @@
 </div>
 <div *ngFor="let comment of inputComment.comments" class="comment-container">
     <mat-divider></mat-divider>
-    <app-comment [comment]="comment" [currentUser]="currentUser"></app-comment>
+    <app-comment [comment]="comment" [currentUser]="currentUser" (deleteCommentEvent)="deleteCommentEvent.emit($event)"  (commentEventEmitter)="commentEventEmitter.emit"></app-comment>
 </div>
