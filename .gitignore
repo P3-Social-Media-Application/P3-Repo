@@ -113,3 +113,16 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+
+
+#Angular 
+social-media-angular-main/node_modules
+social-media-angular-main/.angular
+social-media-angular-main/package-lock.json 
+
+#Spring 
+social-media-spring-main/.settings
+social-media-spring-main/.project
+social-media-spring-main/target/
+social-media-spring-main/.factorypath
+
