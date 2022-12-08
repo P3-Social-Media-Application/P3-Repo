@@ -50,7 +50,6 @@ export class AboutMeComponent implements OnInit {
 
 	onEdit(){ 
 		this.submitted=false;
-
 	}
 
 	onSubmit() {

@@ -28,7 +28,7 @@
 			</div>
 		</mat-card-content>
 		<mat-card-actions align="end">
-			<button *ngIf="post.author.id === currentUser.id" mat-raised-button color="warn" (click)="deletePost(post)">
+			<button *ngIf="post?.author?.id === currentUser?.id" mat-raised-button color="warn" (click)="deletePost(post)">
 				Delete
 			</button>
 			<button
