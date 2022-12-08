@@ -11,9 +11,7 @@ export class AboutInfoService {
   constructor(private _http: HttpClient) { }
   
   submit(info : aboutMe) {
-
-    return  this._http.post<any>(this._url, info, {withCredentials: true , observe: "response" as "body"} )
-     
+    return this._http.post<any>(this._url, info, {withCredentials: true , observe: "response" as "body"} )
   }
   
   getInfo(){

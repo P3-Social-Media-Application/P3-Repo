@@ -2,6 +2,8 @@ package com.revature.models;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +15,8 @@ import javax.persistence.Table;
 public class AboutInfo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String about_Me;
 	private int userID;
+	private String about_Me;
 
 	public AboutInfo(String aboutMe) {
 		super();
@@ -28,21 +28,31 @@ public class AboutInfo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AboutInfo(int id, String aboutMe, int userID) {
+	public AboutInfo(int userID, String about_Me) {
 		super();
-		this.id = id;
-		this.about_Me = aboutMe;
+		this.userID = userID;
+		this.about_Me = about_Me;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
 		this.userID = userID;
 	}
 
-	@Override
-	public String toString() {
-		return "AboutInfo [id=" + id + ", aboutMe=" + about_Me + ", userID=" + userID + "]";
+	public String getAbout_Me() {
+		return about_Me;
+	}
+
+	public void setAbout_Me(String about_Me) {
+		this.about_Me = about_Me;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(about_Me, id, userID);
+		return Objects.hash(about_Me, userID);
 	}
 
 	@Override
@@ -54,31 +64,11 @@ public class AboutInfo {
 		if (getClass() != obj.getClass())
 			return false;
 		AboutInfo other = (AboutInfo) obj;
-		return Objects.equals(about_Me, other.about_Me) && id == other.id && userID == other.userID;
+		return Objects.equals(about_Me, other.about_Me) && userID == other.userID;
 	}
 
-	public int getId() {
-		return id;
+	@Override
+	public String toString() {
+		return "AboutInfo [userID=" + userID + ", about_Me=" + about_Me + "]";
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getAboutMe() {
-		return about_Me;
-	}
-
-	public void setAboutMe(String aboutMe) {
-		this.about_Me = aboutMe;
-	}
-
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
 }

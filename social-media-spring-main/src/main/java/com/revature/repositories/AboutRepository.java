@@ -10,4 +10,7 @@ public interface AboutRepository extends JpaRepository<AboutInfo, Integer> {
 
 	Optional<AboutInfo> findByUserID(int id);
 
+	
+//	AboutInfo update(int userID, AboutInfo info);
+
 }

@@ -11,17 +11,21 @@ import com.revature.repositories.AboutRepository;
 public class AboutService {
 
 	private AboutRepository aboutRepository;
-	
+
 	public AboutService(AboutRepository aboutRepository) {
 		this.aboutRepository = aboutRepository;
 	}
-	
-	 public AboutInfo save(AboutInfo info) {
-	        return aboutRepository.save(info);
-	    }
-	 
-	 public Optional<AboutInfo> getInfo(int id) {
-		 return aboutRepository.findByUserID(id);
-	 }
-	 
+
+	public AboutInfo save(AboutInfo info) {
+		return aboutRepository.save(info);
+	}
+
+	public Optional<AboutInfo> getInfo(int id) {
+		return aboutRepository.findByUserID(id);
+	}
+
+	public AboutInfo update(AboutInfo info) {
+		return aboutRepository.save(info);
+	}
+
 }

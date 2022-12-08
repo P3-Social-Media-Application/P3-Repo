@@ -19,7 +19,7 @@ public class Post {
 
 	@Id
 	@SequenceGenerator(name="mysequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="mysequence" )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="mysequence")
     private int id;
 	private String text;
 	private String imageUrl;

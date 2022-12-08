@@ -1,3 +1,11 @@
 export class aboutMe {
-	constructor(id: number, about_Me: string, userID: number) {}
+
+
+	constructor(
+		public userID: number,
+		public about_Me: string)
+		{
+		this.userID = userID;
+		this.about_Me = about_Me;
+	}
 }

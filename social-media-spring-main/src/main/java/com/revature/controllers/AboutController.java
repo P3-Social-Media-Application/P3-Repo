@@ -34,8 +34,14 @@ public class AboutController {
 		public void registerNewAccount(@RequestBody AboutInfo info, HttpSession session ) {
 	    	User someUser = (User)session.getAttribute("user");
 	    	info.setUserID(someUser.getId());
-	    	info.setId(someUser.getId());				
-	    	aboutService.save(info);
+	    	
+	    	System.out.println(info.toString());
+	    	
+	    	if (aboutService.getInfo(someUser.getId()).isPresent()) {
+	    		aboutService.update(info);	  
+	    	} else {
+	    		aboutService.save(info);	    		
+	    	}
 		}
 	    
 	    @GetMapping("/get-info")
@@ -48,4 +54,6 @@ public class AboutController {
 	    		return ResponseEntity.ok(aboutOpt.get());
 	    	}
 	    }
+	    
+	    
 }
