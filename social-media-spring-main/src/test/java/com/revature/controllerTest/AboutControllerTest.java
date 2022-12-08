@@ -39,7 +39,7 @@ public class AboutControllerTest {
 	@Test
 	void registerNewAccountTest() throws Exception {
 		User user = new User(99999, "testtestuser@example.com", "password", "test", "testuser");
-		AboutInfo info = new AboutInfo(99, "about me text", user.getId());
+		AboutInfo info = new AboutInfo(user.getId(), "about me text");
 		session.setAttribute("user", user);
 
 		when(aboutService.save(info)).thenReturn(info);
@@ -55,7 +55,7 @@ public class AboutControllerTest {
 	@Test
 	void getAboutInfoTest() throws Exception {
 		User user = new User(99999, "testtestuser@example.com", "password", "test", "testuser");
-		AboutInfo info = new AboutInfo(99, "about me text", user.getId());
+		AboutInfo info = new AboutInfo(user.getId(), "about me text");
 
 		Optional<AboutInfo> infoOpt = Optional.of(info);
 
