@@ -67,8 +67,10 @@ export class PostFeedPageComponent implements OnInit {
 	};
 
 	refreshPosts = (deleteBool: boolean) => {
+		console.log("before getting all posts")
 		if (deleteBool) {
 			this.postService.getAllPosts().subscribe((response) => {
+				console.log("getting all posts")
 				this.posts = response.filter((post) => post.comment == false);
 			});
 		}

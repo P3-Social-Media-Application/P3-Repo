@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import org.springframework.http.ResponseEntity;
@@ -66,7 +68,7 @@ public class PostController {
 
 		if (currentUser.getId() == post.getAuthor().getId()) {
 			this.postService.deleteComment(post);
-			return ResponseEntity.ok("Deleted comment " + post.getId());
+			return ResponseEntity.ok().build();
 		} else {
 			return null;
 		}
