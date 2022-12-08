@@ -25,16 +25,6 @@ export class AboutMeComponent implements OnInit {
 		});
 	}
 
-	onSubmit() {
-		this.submitted = true;
-		console.log(this.aboutMe.value);
-		this.aboutInfo.submit(this.aboutMe.value).subscribe((data) => {
-			setTimeout(() => {
-				window.location.reload();
-			}, 250);
-		});
-	}
-
 	ngOnInit(): void {
 		this.aboutInfo.getInfo().subscribe(
 			(res: any) => {
@@ -46,4 +36,22 @@ export class AboutMeComponent implements OnInit {
 			}
 		);
 	}
+
+	onEdit(){ 
+		this.submitted=false;
+
+	}
+		
+	
+
+	onSubmit() {
+		this.submitted = true;
+		console.log(this.aboutMe.value);
+		this.aboutInfo.submit(this.aboutMe.value).subscribe((data) => { 
+				this.myInfo=this.aboutMe.value.aboutMe; 
+		});
+	}
+
+
+
 }

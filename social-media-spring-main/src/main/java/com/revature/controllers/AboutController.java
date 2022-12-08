@@ -34,6 +34,7 @@ public class AboutController {
 		public void registerNewAccount(@RequestBody AboutInfo info, HttpSession session ) {
 	    	User someUser = (User)session.getAttribute("user");
 	    	info.setUserID(someUser.getId());
+	    	info.setId(someUser.getId());				
 	    	aboutService.save(info);
 		}
 	    
