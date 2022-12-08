@@ -1,0 +1,12 @@
+#textSection {
+  overflow-wrap: break-word;
+}
+
+#close-icon-containter{
+  display: flex;
+  justify-content: flex-end;
+}
+
+#close-icon:hover {
+  cursor: pointer;
+}
