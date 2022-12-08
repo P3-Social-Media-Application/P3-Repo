@@ -12,8 +12,8 @@ public class AboutInfoTest {
 	
 	@Test
 	void AboutInfoToStringTest() {
-		AboutInfo info = new AboutInfo(99, "about me text", 999);
+		AboutInfo info = new AboutInfo(999, "about me text");
 		
-		assertEquals(info.toString(), "AboutInfo [id=" + info.getId() + ", aboutMe=" + info.getAboutMe() + ", userID=" + info.getUserID() + "]");
+		assertEquals(info.toString(), "AboutInfo [userID=" + info.getUserID() + ", about_Me=" + info.getAbout_Me() + "]");
 	}
 }

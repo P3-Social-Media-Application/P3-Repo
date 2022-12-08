@@ -26,7 +26,7 @@ public class AboutServiceTest {
 
 	@Test
 	void saveTest() {
-		AboutInfo info = new AboutInfo(9999, "about text", 999);
+		AboutInfo info = new AboutInfo(999, "about text");
 
 		when(aboutRepository.save(info)).thenReturn(info);
 		AboutInfo actualResult = aboutService.save(info);
@@ -35,7 +35,7 @@ public class AboutServiceTest {
 
 	@Test
 	void getInfoTest() {
-		AboutInfo info = new AboutInfo(9999, "about text", 999);
+		AboutInfo info = new AboutInfo(999, "about text");
 		Optional<AboutInfo> infoOpt = Optional.of(info);
 
 		when(aboutRepository.findByUserID(999)).thenReturn(infoOpt);

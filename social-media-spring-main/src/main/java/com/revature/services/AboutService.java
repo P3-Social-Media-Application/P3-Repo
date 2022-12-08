@@ -23,9 +23,4 @@ public class AboutService {
 	public Optional<AboutInfo> getInfo(int id) {
 		return aboutRepository.findByUserID(id);
 	}
-
-	public AboutInfo update(AboutInfo info) {
-		return aboutRepository.save(info);
-	}
-
 }

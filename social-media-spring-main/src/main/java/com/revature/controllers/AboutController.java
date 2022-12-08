@@ -35,13 +35,7 @@ public class AboutController {
 	    	User someUser = (User)session.getAttribute("user");
 	    	info.setUserID(someUser.getId());
 	    	
-	    	System.out.println(info.toString());
-	    	
-	    	if (aboutService.getInfo(someUser.getId()).isPresent()) {
-	    		aboutService.update(info);	  
-	    	} else {
-	    		aboutService.save(info);	    		
-	    	}
+	    	aboutService.save(info);
 		}
 	    
 	    @GetMapping("/get-info")
