@@ -69,12 +69,16 @@ export class CommentComponent implements OnInit {
 
 	deleteComment = (post: Post) => {
 		if (window.confirm("Are sure you want to remove your comment?")) {
-			this.postService.deleteComment(post).subscribe();
-			setTimeout(() => {
-				this.deleteCommentEvent.emit(true);
-			}, 250);
-			this.refreshComments(true);
-			window.location.reload();
+			this.postService.deleteComment(post).subscribe(
+				(data)=>{ 
+					this.deleteCommentEvent.emit(true);
+					this.refreshComments(true);
+				},
+				(error)=>{
+					console.log("ERROR IN deleteComment");
+					console.log(error);
+				} 
+			); 
 		}
 	};
 

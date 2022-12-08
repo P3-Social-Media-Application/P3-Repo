@@ -2,7 +2,7 @@
     {{inputComment.text}}
 </p> 
 
-<button *ngIf="currentUser.id == inputComment.author.id" mat-raised-button color="warn" (click)="deleteComment(inputComment)" >Delete</button>
+<button *ngIf="currentUser.id == inputComment.author.id" mat-raised-button color="warn" (click)="deleteComment(inputComment)" >DeleteC</button>
 
 <div class="comment-reply" align="right">
 
@@ -41,5 +41,5 @@
 </div>
 <div *ngFor="let comment of inputComment.comments" class="comment-container">
     <mat-divider></mat-divider>
-    <app-comment [comment]="comment" [currentUser]="currentUser"></app-comment>
+    <app-comment [comment]="comment" [currentUser]="currentUser" (deleteCommentEvent)="deleteCommentEvent.emit($event)"  (commentEventEmitter)="commentEventEmitter.emit"></app-comment>
 </div>
