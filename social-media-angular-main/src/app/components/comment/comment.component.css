@@ -10,3 +10,21 @@
 #close-icon:hover {
   cursor: pointer;
 }
+
+#optionButtons {
+  display: flex;
+  flex-direction: row;
+  min-width: 100%;
+  justify-content: end;
+}
+
+#comment-reply-text p{
+  margin: 0 10;
+  text-decoration: underline;
+}
+
+#edit-reply-text p{
+  padding-left: 10px;
+  color:red;
+  text-decoration:underline;
+}

@@ -35,7 +35,9 @@ export class PostFeedPageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.postService.getAllPosts().subscribe((response) => {
-			this.posts = response.filter((post) => post.comment == false);
+			this.posts = response
+				.filter((post) => post.comment == false)
+				.sort((postA, postB) => postB.id - postA.id);
 		});
 
 		this.authService.retrieveUser().subscribe((response) => {
@@ -62,17 +64,21 @@ export class PostFeedPageComponent implements OnInit {
 				)
 			)
 			.subscribe((response) => {
-				this.posts = [response, ...this.posts];
+				this.postForm = new FormGroup({
+					text: new FormControl(""),
+					imageUrl: new FormControl(""),
+				});
+				this.refreshPosts(true);
 				this.toggleCreatePost();
-				window.location.reload();
 			});
 	};
 
 	refreshPosts = (deleteBool: boolean) => {
 		if (deleteBool) {
 			this.postService.getAllPosts().subscribe((response) => {
-				console.log("getting all posts");
-				this.posts = response.filter((post) => post.comment == false);
+				this.posts = response
+					.filter((post) => post.comment == false)
+					.sort((postA, postB) => postB.id - postA.id);
 			});
 		}
 	};
