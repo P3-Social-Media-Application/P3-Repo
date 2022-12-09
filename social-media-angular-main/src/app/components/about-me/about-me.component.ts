@@ -5,6 +5,7 @@ import { aboutMe } from "src/app/models/aboutme";
 import User from "src/app/models/User";
 import { AboutInfoService } from "src/app/services/about-info.service";
 import { AuthService } from "src/app/services/auth.service";
+import "leo-profanity";
 
 @Component({
 	selector: "app-about-me",
@@ -45,18 +46,22 @@ export class AboutMeComponent implements OnInit {
 			(err) => {
 				console.log(err);
 			}
-		)
+		);
 	}
 
-	onEdit(){ 
-		this.submitted=false;
+	onEdit() {
+		this.submitted = false;
 	}
 
 	onSubmit() {
 		this.submitted = true;
-		let info = new aboutMe(this.currentUser.id, this.aboutMe.value.aboutMe)
+		const Filter = require("leo-profanity");
+		let info = new aboutMe(
+			this.currentUser.id,
+			Filter.clean(this.aboutMe.value.aboutMe)
+		);
 		this.aboutInfo.submit(info).subscribe((data) => {
-			this.myInfo=this.aboutMe.value.aboutMe;
+			this.myInfo = Filter.clean(this.aboutMe.value.aboutMe);
 		});
 	}
 }
