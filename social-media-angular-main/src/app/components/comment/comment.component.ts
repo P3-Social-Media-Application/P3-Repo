@@ -4,6 +4,7 @@ import Post from "src/app/models/Post";
 import User from "src/app/models/User";
 import { AuthService } from "src/app/services/auth.service";
 import { PostService } from "src/app/services/post.service";
+import "leo-profanity";
 
 @Component({
 	selector: "app-comment",
@@ -47,9 +48,10 @@ export class CommentComponent implements OnInit {
 
 	submitReply = (e: any) => {
 		e.preventDefault();
+		const Filter = require("leo-profanity");
 		let newComment = new Post(
 			0,
-			this.commentForm.value.text || "",
+			Filter.clean(this.commentForm.value.text || ""),
 			"",
 			this.currentUser,
 			[],
@@ -70,15 +72,15 @@ export class CommentComponent implements OnInit {
 	deleteComment = (post: Post) => {
 		if (window.confirm("Are sure you want to remove your comment?")) {
 			this.postService.deleteComment(post).subscribe(
-				(data)=>{ 
+				(data) => {
 					this.deleteCommentEvent.emit(true);
 					this.refreshComments(true);
 				},
-				(error)=>{
+				(error) => {
 					console.log("ERROR IN deleteComment");
 					console.log(error);
-				} 
-			); 
+				}
+			);
 		}
 	};
 
@@ -88,9 +90,10 @@ export class CommentComponent implements OnInit {
 
 	submitEditedPost = (e: any) => {
 		e.preventDefault();
+		const Filter = require("leo-profanity");
 		let newPost = new Post(
 			this.inputComment.id,
-			this.commentForm.value.text || "",
+			Filter.clean(this.commentForm.value.text || ""),
 			"",
 			this.currentUser,
 			this.inputComment.comments,

@@ -11,6 +11,7 @@ import Post from "src/app/models/Post";
 import User from "src/app/models/User";
 import { AuthService } from "src/app/services/auth.service";
 import { PostService } from "src/app/services/post.service";
+import "leo-profanity";
 
 @Component({
 	selector: "app-post-feed-page",
@@ -48,11 +49,12 @@ export class PostFeedPageComponent implements OnInit {
 
 	submitPost = (e: any) => {
 		e.preventDefault();
+		const Filter = require("leo-profanity");
 		this.postService
 			.upsertPost(
 				new Post(
 					0,
-					this.postForm.value.text || "",
+					Filter.clean(this.postForm.value.text || ""),
 					this.postForm.value.imageUrl || "",
 					this.currentUser,
 					[],
@@ -67,10 +69,9 @@ export class PostFeedPageComponent implements OnInit {
 	};
 
 	refreshPosts = (deleteBool: boolean) => {
-		console.log("before getting all posts")
 		if (deleteBool) {
 			this.postService.getAllPosts().subscribe((response) => {
-				console.log("getting all posts")
+				console.log("getting all posts");
 				this.posts = response.filter((post) => post.comment == false);
 			});
 		}

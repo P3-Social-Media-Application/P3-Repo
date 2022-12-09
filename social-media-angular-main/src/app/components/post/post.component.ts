@@ -5,6 +5,7 @@ import Post from "src/app/models/Post";
 import User from "src/app/models/User";
 import { AuthService } from "src/app/services/auth.service";
 import { PostService } from "src/app/services/post.service";
+import "leo-profanity";
 
 @Component({
 	selector: "app-post",
@@ -16,9 +17,9 @@ export class PostComponent implements OnInit {
 		text: new FormControl(""),
 	});
 	postForm = new FormGroup({
-		text: new FormControl(''),
-		imageUrl: new FormControl('')
-	})
+		text: new FormControl(""),
+		imageUrl: new FormControl(""),
+	});
 
 	@Input("post") post: Post;
 	replyToPost: boolean = false;
@@ -26,7 +27,7 @@ export class PostComponent implements OnInit {
 
 	@Input()
 	currentUser: User;
-	public set value(user : User) {
+	public set value(user: User) {
 		this.currentUser = user;
 	}
 
@@ -36,25 +37,25 @@ export class PostComponent implements OnInit {
 	constructor(
 		private postService: PostService,
 		private authService: AuthService
-	) { }
+	) {}
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): void {}
 
 	toggleReplyToPost = () => {
 		this.replyToPost = !this.replyToPost;
 	};
 
 	toggleEditPost = () => {
-		this.editPost = !this.editPost
-		this.replyToPost = false
-	  }
+		this.editPost = !this.editPost;
+		this.replyToPost = false;
+	};
 
 	submitReply = (e: any) => {
 		e.preventDefault();
+		const Filter = require("leo-profanity");
 		let newComment = new Post(
 			0,
-			this.commentForm.value.text || "",
+			Filter.clean(this.commentForm.value.text || ""),
 			"",
 			this.currentUser,
 			[],
@@ -69,13 +70,11 @@ export class PostComponent implements OnInit {
 				this.post = response;
 				this.toggleReplyToPost();
 			});
-			window.location.reload();
+		window.location.reload();
 	};
 
 	deletePost = (post: Post) => {
-		if (
-			window.confirm("Are sure you want to remove your comment?")
-		) {
+		if (window.confirm("Are sure you want to remove your comment?")) {
 			this.postService.deletePost(post).subscribe();
 			setTimeout(() => {
 				this.deletePostEvent.emit(true);
@@ -88,15 +87,19 @@ export class PostComponent implements OnInit {
 	};
 
 	submitEditedPost = (e: any) => {
-		e.preventDefault()
-		let newPost = new Post(this.post.id, this.postForm.value.text || "", this.postForm.value.imageUrl || "", this.authService.currentUser, this.post.comments, false)
-		this.postService.updatePost(newPost)
-		  .subscribe(
-			(response) => {
-			  this.post = response
-			  this.toggleEditPost()
-			}
-		  )
-	  }
-	
+		e.preventDefault();
+		const Filter = require("leo-profanity");
+		let newPost = new Post(
+			this.post.id,
+			Filter.clean(this.commentForm.value.text || ""),
+			this.postForm.value.imageUrl || "",
+			this.authService.currentUser,
+			this.post.comments,
+			false
+		);
+		this.postService.updatePost(newPost).subscribe((response) => {
+			this.post = response;
+			this.toggleEditPost();
+		});
+	};
 }

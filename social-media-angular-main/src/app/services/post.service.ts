@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import Post from "../models/Post";
 
+
 @Injectable({
 	providedIn: "root",
 })
@@ -41,7 +42,9 @@ export class PostService {
 	}
 
 	updatePost(post: Post): Observable<Post> {
-		return this.http.put<Post>(`${this.postUrl}`, post, {headers: environment.headers, withCredentials: environment.withCredentials})
-	  }
-	
+		return this.http.put<Post>(`${this.postUrl}`, post, {
+			headers: environment.headers,
+			withCredentials: environment.withCredentials,
+		});
+	}
 }
