@@ -50,8 +50,12 @@ public class UserController {
 		}else {
 			return ResponseEntity.ok(false);
 		}
-		
-		
+	}
+	
+	@GetMapping("/friend/{email}")
+	public Optional<User> friend(@PathVariable("email") String email) {
+		return userService.findByCredentials(email);
+
 	}
 	
 }
