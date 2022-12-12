@@ -37,29 +37,12 @@ public class LikesController {
     	likesService.save(info);
 	}
 	
-//	@GetMapping("/getlikes/{postid}")
-//	public Optional<Likes> getLikes(@PathVariable("postid") int id) {
-//		return likesService.getLikes(id);
-//
-//	}
+
 	
 	@GetMapping("/getlikes/{postid}")
 	public List<Likes> getLikes(@PathVariable("postid") int id) {
-		return likesService.getLikes(id);
-		
+		return likesService.getLikes(id);	
 
 	}
 	
-	
-//	@GetMapping("/getlikes/{postid}")
-//    public ResponseEntity<Object> getLikes(@PathVariable("postid")int id) {
-//    	
-//    	Optional<Likes> likesOpt = likesService.getLikes(id);
-//    	if (likesOpt.isEmpty()) {
-//    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//    	}else {
-//    		return ResponseEntity.ok(likesOpt.get());
-//    	}
-//
-//}
 }
