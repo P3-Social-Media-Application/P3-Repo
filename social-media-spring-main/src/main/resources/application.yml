@@ -12,4 +12,8 @@ spring:
     username: sa
     password: password
   h2:
-    console.enabled: true
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+    
