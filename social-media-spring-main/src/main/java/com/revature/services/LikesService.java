@@ -12,22 +12,17 @@ import com.revature.repositories.LikesRepository;
 @Service
 public class LikesService {
 
-	private  LikesRepository likesRepo;
-	
-	public LikesService (LikesRepository likesRepo) {
+	private LikesRepository likesRepo;
+
+	public LikesService(LikesRepository likesRepo) {
 		this.likesRepo = likesRepo;
 	}
-	
+
 	public Likes save(Likes info) {
 		return likesRepo.save(info);
 	}
 
 	public List<Likes> getLikes(int id) {
-		
-		return likesRepo.findAllByPostID(id);
-	}
-	
-	public List<Likes> getAllLikes(int id) {
 		return likesRepo.findAllByPostID(id);
 	}
 }

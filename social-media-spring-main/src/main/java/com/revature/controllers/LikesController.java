@@ -22,27 +22,22 @@ import com.revature.services.LikesService;
 
 @RestController
 @RequestMapping("/likes")
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"}, allowCredentials = "true")
+@CrossOrigin(origins = { "http://localhost:4200", "http://localhost:3000" }, allowCredentials = "true")
 public class LikesController {
-	
-	 private final LikesService likesService;
 
-	    public LikesController(LikesService likesService) {
-	        this.likesService = likesService;
-	        
-	    }
-	
-	@PostMapping("/addlike")
-	public void addLikes(@RequestBody Likes info, HttpSession session ) {
-    	likesService.save(info);
+	private final LikesService likesService;
+
+	public LikesController(LikesService likesService) {
+		this.likesService = likesService;
 	}
-	
 
-	
+	@PostMapping("/addlike")
+	public void addLikes(@RequestBody Likes info, HttpSession session) {
+		likesService.save(info);
+	}
+
 	@GetMapping("/getlikes/{postid}")
 	public List<Likes> getLikes(@PathVariable("postid") int id) {
-		return likesService.getLikes(id);	
-
+		return likesService.getLikes(id);
 	}
-	
 }
