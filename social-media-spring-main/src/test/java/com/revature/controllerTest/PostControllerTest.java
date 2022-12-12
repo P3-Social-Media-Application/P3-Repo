@@ -127,7 +127,7 @@ public class PostControllerTest {
 
 		String actualResult = requestResult.getResponse().getContentAsString();
 
-		assertThat(actualResult).isEqualTo("Deleted comment " + postTest.getId());
+		assertThat(actualResult).isEqualTo(Integer.toString(postTest.getId()));
 	}
 	
 	@Test

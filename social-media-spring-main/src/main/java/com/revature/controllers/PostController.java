@@ -68,7 +68,7 @@ public class PostController {
 
 		if (currentUser.getId() == post.getAuthor().getId()) {
 			this.postService.deleteComment(post);
-			return ResponseEntity.ok().build();
+			return ResponseEntity.ok(post.getId());
 		} else {
 			return null;
 		}
