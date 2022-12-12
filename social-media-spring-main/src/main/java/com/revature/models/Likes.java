@@ -16,7 +16,6 @@ public class Likes {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int ID;
 	int postID;
-	int likeCount;
 	String likedBy;
 	
 	public Likes() {
@@ -24,22 +23,21 @@ public class Likes {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Likes(int iD, int postID, int likeCount, String likedBy) {
+	public Likes(int iD, int postID, String likedBy) {
 		super();
 		ID = iD;
 		this.postID = postID;
-		this.likeCount = likeCount;
 		this.likedBy = likedBy;
 	}
 
 	@Override
 	public String toString() {
-		return "Likes [ID=" + ID + ", postID=" + postID + ", likeCount=" + likeCount + ", likedBy=" + likedBy + "]";
+		return "Likes [ID=" + ID + ", postID=" + postID + ", likedBy=" + likedBy + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ID, likeCount, likedBy, postID);
+		return Objects.hash(ID, likedBy, postID);
 	}
 
 	@Override
@@ -51,8 +49,7 @@ public class Likes {
 		if (getClass() != obj.getClass())
 			return false;
 		Likes other = (Likes) obj;
-		return ID == other.ID && likeCount == other.likeCount && Objects.equals(likedBy, other.likedBy)
-				&& postID == other.postID;
+		return ID == other.ID && Objects.equals(likedBy, other.likedBy) && postID == other.postID;
 	}
 
 	public int getID() {
@@ -71,14 +68,6 @@ public class Likes {
 		this.postID = postID;
 	}
 
-	public int getLikeCount() {
-		return likeCount;
-	}
-
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
-
 	public String getLikedBy() {
 		return likedBy;
 	}
@@ -86,7 +75,4 @@ public class Likes {
 	public void setLikedBy(String likedBy) {
 		this.likedBy = likedBy;
 	}
-	
-	
-	
 }

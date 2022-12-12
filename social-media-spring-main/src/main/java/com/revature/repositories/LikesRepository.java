@@ -12,6 +12,4 @@ public interface LikesRepository extends JpaRepository<Likes, Integer>{
 	Optional<Likes> findByPostID(int id);
 
 	List<Likes> findAllByPostID(int id);
-
-
 }
