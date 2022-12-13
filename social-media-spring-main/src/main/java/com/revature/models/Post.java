@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,9 @@ public class Post {
 	@SequenceGenerator(name="mysequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="mysequence")
     private int id;
+	@Column(columnDefinition = "VARCHAR(Max)")
 	private String text;
+	@Column(columnDefinition = "VARCHAR(Max)")
 	private String imageUrl;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Post> comments;
