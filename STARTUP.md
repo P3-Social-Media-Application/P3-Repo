@@ -34,6 +34,12 @@ The backend of this project can be run either locally or remotely.
 <li>Create a simple systemd service that will tell the EC2 to run the .jar file.
 <ul>
 <li>Below is an example of the simple service you will need to create.
-<li><img src="Spring-Service.jpg">
+<img src="Spring-Service.jpg">
 </ul>
-<li>Incorporate the stopping and starting of this simple service into your Jenkins build.  This is done in post build actions.
+<li>If you are still making changes to the code, you will need to incorporate the stopping and starting of this simple service into your Jenkins build.  This is done in post build actions.
+  <ul>
+  <img src="postbuild.jpg">
+  </ul>
+<li>This will stop your application and then restart it with the new build.
+<li>To access your application remotely once it is running on your EC2 using the simple service, go to your EC2's public address with whichever port your SpringBoot application is set up to run on.  For example port 8081.
+
