@@ -28,18 +28,20 @@ The backend of this project can be run either locally or remotely.
 
 <h3>To run remotely:</h3>
 <ol type="1">
-<li>Set up your Amazon EC2 Instance.
-<li>Set up your Jenkins pipeline.
+<li>Set up the Amazon EC2 Instance.
+<li>Set up the Jenkins pipeline.
 <li>Take note of where Jenkins places SpringBoot project's .jar file after the build completes.
-<li>Create a simple systemd service that will tell the EC2 to run the .jar file.
+<li>Create a simple systemd service that will tell the EC2 to run the .jar file (The built SpringBoot application).
 <ul>
-<li>Below is an example of the simple service you will need to create.
+<li>Below is an example of the simple service needed.
 <img src="Spring-Service.jpg">
 </ul>
-<li>If you are still making changes to the code, you will need to incorporate the stopping and starting of this simple service into your Jenkins build.  This is done in post build actions.
+<li>To start the service on the EC2 instance type the following in the command line: "sudo systemctl start [service-name]"
+<li>To automatically start the service when the EC2 boots, type the following in the command line: "sudo systemctl enable [service-name]"
+<li>IF THERE ARE STILL GOING TO BE CHANGES TO THE CODE, the service will have to be stopped and restarted after each build.  This is achieved through the post-build actions in the Jenkins Pipeline.
   <ul>
   <img src="postbuild.jpg">
   </ul>
-<li>This will stop your application and then restart it with the new build.
-<li>To access your application remotely once it is running on your EC2 using the simple service, go to your EC2's public address with whichever port your SpringBoot application is set up to run on. For example, port 8081.
+<li>This will stop the application and then restart it with the new build.
+<li>To access the application remotely once it is running on your EC2 using the simple service, go to the EC2's public address with whichever port the SpringBoot application is set up to run on. For example, port 8081.
 
