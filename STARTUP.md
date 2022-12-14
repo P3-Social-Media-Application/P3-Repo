@@ -4,7 +4,7 @@ The backend of this project can be run either locally or remotely.
 
 <h3>To run locally:</h3>
 <ol type="1">
-  <li>Be sure the latest Java Runtime Environment (JRE) is installed.</li>
+  <li>Be sure the Java Runtime Environment (JRE) for Java 11 is installed.</li>
   <li>Run the <code>SocialMediaApplication.java</code> file in <code>social-media-spring-main/main/java/com/revature/</code>. This can be accomplished by:
     <ul>
       <li>Running <code>javac SocialMediaApplication.java</code> and then <code>java SocialMediaApplication.class</code> in the command line at the folder's location.</li>
@@ -41,5 +41,5 @@ The backend of this project can be run either locally or remotely.
   <img src="postbuild.jpg">
   </ul>
 <li>This will stop your application and then restart it with the new build.
-<li>To access your application remotely once it is running on your EC2 using the simple service, go to your EC2's public address with whichever port your SpringBoot application is set up to run on.  For example port 8081.
+<li>To access your application remotely once it is running on your EC2 using the simple service, go to your EC2's public address with whichever port your SpringBoot application is set up to run on. For example, port 8081.
 
