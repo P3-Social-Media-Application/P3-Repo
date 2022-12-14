@@ -25,3 +25,15 @@ The backend of this project can be run either locally or remotely.
           <dt>Password:</dt>
           <dd>password</dd>
 </ol>
+
+<h3>To run remotely:</h3>
+<ol type="1">
+<li>Set up your Amazon EC2 Instance.
+<li>Set up your Jenkins pipeline.
+<li>Take note of where Jenkins places SpringBoot project's .jar file after the build completes.
+<li>Create a simple systemd service that will tell the EC2 to run the .jar file.
+<ul>
+<li>Below is an example of the simple service you will need to create.
+<li><img src="Spring-Service.jpg">
+</ul>
+<li>Incorporate the stopping and starting of this simple service into your Jenkins build.  This is done in post build actions.
